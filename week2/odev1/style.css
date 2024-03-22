@@ -1,0 +1,22 @@
+.header{
+    text-align: center;
+}
+.info-msg{
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+}
+.contact-msg{
+    text-align: center;
+}
+.recipes{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-left: 35%;
+}
+.food-img{
+    width: 50%;
+    height: 25%;
+}
