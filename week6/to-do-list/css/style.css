@@ -1,0 +1,9 @@
+.list-group-item:hover {
+    background-color: #f0f0f0;
+}
+
+.task-done {
+    text-decoration: line-through;
+    color: #888;
+    cursor: default;
+}

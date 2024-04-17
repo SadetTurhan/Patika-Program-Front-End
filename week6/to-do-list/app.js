@@ -1,38 +1,82 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if (savedTasks) {
+        savedTasks.forEach(task => {
+            if (!taskListDOM.innerHTML.includes(task)) {
+                addTask(task);
+            }
+        });
+    }
+});
 let taskFormDOM = document.querySelector("#taskForm");
-taskFormDOM.addEventListener('submit',formHandler)
+taskFormDOM.addEventListener('submit', formHandler);
 
-const alertDOM = document.querySelector("#alert")
-const ALERT = `
-<div class="alert alert-warning alert-dismissible fade show ml-3" role="alert">
-  <strong>houston we have a problem!</strong> Please fill in the input.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-` 
-const SUCCESSALERT = `
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    Task has been added.
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-`
-function formHandler(event){
-    event.preventDefault()
-    const TASK_NAME = document.querySelector("#taskname")
-    if(TASK_NAME.value){
-        addTask(TASK_NAME.value)
-        TASK_NAME.value = ""
-        alertDOM.innerHTML = SUCCESSALERT;
-    }else{
-        alertDOM.innerHTML = ALERT;
+const toastContainer = document.querySelector('.toast-container');
+
+function formHandler(event) {
+    event.preventDefault();
+    const TASK_NAME = document.querySelector("#taskname");
+    if (TASK_NAME.value) {
+        addTask(TASK_NAME.value);
+        TASK_NAME.value = "";
+        showToast('Task has been added.', 'success');
+    } else {
+        showToast('Please fill in the input.', 'danger');
     }
 }
 
-let taskListDOM = document.querySelector("#taskList")
+let taskListDOM = document.querySelector("#taskList");
 
 const addTask = (taskName) => {
-    let liDOM = document.createElement('li')
-    liDOM.innerHTML = ` ${taskName}
-    <span class="bg-primary rounded-pill">
-    `
-    liDOM.classList.add('list-group-item','d-flex','justify-content-between','align-items-center')
-    taskListDOM.append(liDOM)
+    let liDOM = document.createElement('li');
+    liDOM.innerHTML = `
+        ${taskName}
+        <span class="bg-primary rounded-pill">
+            <button class="deleteBtn btn btn-danger">Delete Task</button>
+        </span>
+    `;
+    liDOM.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+    taskListDOM.append(liDOM);
+
+    saveTaskToLocalStorage(taskName);
+
+    liDOM.addEventListener('click', () => {
+        liDOM.classList.toggle('task-done');
+    });
+
+    const deleteBtn = liDOM.querySelector('.deleteBtn');
+    deleteBtn.addEventListener('click', () => {
+        liDOM.remove();
+        removeFromLocalStorage(taskName); 
+    });
+};
+
+function showToast(message, type) {
+    const toast = document.createElement('div');
+    toast.className = `toast bg-${type} text-white`;
+    toast.innerHTML = `
+        <div class="toast-body">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    `;
+    toastContainer.appendChild(toast);
+    
+    const bootstrapToast = new bootstrap.Toast(toast);
+    bootstrapToast.show();
+}
+
+function saveTaskToLocalStorage(taskName) {
+    let tasks = [];
+    if (localStorage.getItem('tasks')) {
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    tasks.push(taskName);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function removeFromLocalStorage(taskName) {
+    let tasks = JSON.parse(localStorage.getItem('tasks'));
+    tasks = tasks.filter(task => task !== taskName);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
