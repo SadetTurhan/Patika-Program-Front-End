@@ -82,17 +82,35 @@ const menu = [
     },
   ];
 
-  
-//Array for Korea
-const koreaFilteredArray = menu.filter((veri,index) => {
-    return veri.category === "Korea"
-})
-//Array for Japan  
-const japanFilteredArray = menu.filter((veri,index) => {
-    return veri.category === "Japan"
-})
-//Array for China
-const chinaFilteredArray = menu.filter((veri,index) => {
-    return veri.category === "China"
-})
-console.log(chinaFilteredArray)
+function createMenuItem(item) {
+    return `
+        <div class="menu-items col-lg-6 col-sm-12">
+            <img src="${item.img}" alt="${item.title}" class="photo">
+            <div class="menu-info">
+                <div class="menu-title">
+                    <h4>${item.title}</h4>
+                    <h4 class="price">${item.price}</h4>
+                </div>
+                <div class="menu-text">${item.desc}</div>
+            </div>
+        </div>
+    `;
+}
+function displayMenuItems(menuItems) {
+    const menuSector = document.getElementById('menuSector');
+    menuSector.innerHTML = menuItems.map(item => createMenuItem(item)).join('');
+}
+displayMenuItems(menu);
+
+const filterButtons = document.querySelectorAll('.btn-item');
+filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const category = this.getAttribute('data-id');
+        if (category === 'All') {
+            displayMenuItems(menu);
+        } else {
+            const filteredMenu = menu.filter(item => item.category === category);
+            displayMenuItems(filteredMenu);
+        }
+    });
+});
