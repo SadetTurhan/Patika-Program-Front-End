@@ -1,0 +1,130 @@
+
+body{
+  width: 75%;
+  margin: auto;
+  background-color: #f1f2f6;
+}
+
+.navbar{
+  position: sticky;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size:xx-large;
+  padding: 2rem 0;
+  margin-bottom: 1rem;
+  background-color: #26c683;
+  transition: 0.1ms ease;
+}
+
+.headerContainer{
+  margin-top:150px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+
+.headerContainer img{
+  height: 150px;
+  width: max-content;
+  border-radius: 75px;
+}
+
+.heroContainer{
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.container{
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%); 
+  text-align: center;
+}
+
+.heroPrice{
+  color: green;
+  font-size: x-large;
+  font-weight:bold;
+}
+
+.heroContainer img{
+  margin: 15px auto;
+  width: max-content;
+  height: 150px;
+}
+
+.heroButtonContainer{
+  margin:20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.heroButtonContainer button{
+  padding: 8px 30px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+}
+
+.btnHeroSell{
+  background-color: #f53b79;
+  color: white;
+}
+
+.btnHeroBuy{
+  background-color: #26c683;
+  color: white;
+}
+
+.heroButtonContainer input{
+  width: 100px;
+  text-align: center;
+  padding: 8px;
+  margin: 0 2rem;
+  border-radius: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.footer-receipt {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  text-align: center;
+}
+
+.receipt-container {
+  width: 30%;
+}
+
+.receipt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: large;
+}
+
+.price {
+  color: green;
+  font-size: x-large;
+  font-weight:bold;
+}
